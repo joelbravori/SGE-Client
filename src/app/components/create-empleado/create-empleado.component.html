@@ -1,0 +1,57 @@
+<div class="col-md-4 offset-md-4">
+    <div class="card">
+        <div class="card-body">
+            <form>
+                <div class="form-group row m-2">
+                    
+                    <!-- <div class="col-2">
+                        <label>Nombre:</label>
+                    </div>
+                    <div class="col-10">
+                        <input type="text" class="form-control" name="nombre" placeholder="Nombre">
+                    </div> -->
+                    <label class="p-0">Nombre:</label>
+                    <input type="text" class="form-control" name="nombre" [(ngModel)]="empleado.nombre" placeholder="Ingrese Nombre">
+                </div>
+                <div class="form-group m-2">
+                    <label class="p-0">RUT:</label>
+                    <input type="text" class="form-control" name="id" [(ngModel)]="empleado.id" placeholder="Ingrese RUT">
+                </div>
+                <div class="form-group m-2">
+                    <label class="p-0">Correo:</label>
+                    <input type="text" class="form-control" name="correo" [(ngModel)]="empleado.correo" placeholder="Ingrese Correo">
+                </div>
+                <div class="form-group m-2">
+                    <label class="p-0">Teléfono:</label>
+                    <input type="text" class="form-control" name="telefono" [(ngModel)]="empleado.telefono" placeholder="Ingrese Teléfono">
+                </div>
+                <div class="form-group m-2">
+                    <label class="p-0">Dirección:</label>
+                    <input type="text" class="form-control" name="direccion" [(ngModel)]="empleado.direccion" placeholder="Ingrese Dirección">
+                </div>
+                <div class="form-group m-2">
+                    <label class="p-0">Imagen:</label>
+                    <input type="file" class="form-control" name="imagen" (change)="onChange($event)">
+                </div>
+                <div *ngIf="myImage; else noImage" class="form-group m-2">
+                    <img [src]="myImage" width="375px" height="375px">
+                </div>
+                <ng-template #noImage>
+                    <div class="form-group m-2">
+                        <img [src]="'assets/no_image.jpg'" width="375px" height="375px">
+                    </div>
+                </ng-template>
+                <div class="m-2 row">
+                    <div class="col-6">
+                        <button class="btn btn-success w-100" (click)="createUser()">Guardar</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-danger w-100">Cancelar</button>
+                    </div>
+                    
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
