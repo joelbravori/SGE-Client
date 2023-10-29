@@ -1,0 +1,35 @@
+<div class="container">
+    <div>
+        <button class="btn btn-primary my-2">Nuevo Empleado</button>
+    </div>
+    <table class="table">
+        <thead class="table-primary">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">RUT</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let empleado of empleados; index as i">
+                <td>{{i+1}}</td>
+                <td>{{empleado.nombre}}</td>
+                <td>{{empleado.id}}</td>
+                <td>{{empleado.correo}}</td>
+                <td>{{empleado.telefono}}</td>
+                <td>{{empleado.direccion}}</td>
+                <td>
+                    <button class="btn btn-primary mx-1"><i class="fa-solid fa-eye"></i></button>
+                    <button class="btn btn-primary mx-1"><i class="fa-solid fa-pen"></i></button>
+                    <button class="btn btn-danger mx-1"><i class="fa-solid fa-trash"></i></button>
+                </td>
+    
+            </tr>
+        </tbody>
+    </table>
+</div>
+
