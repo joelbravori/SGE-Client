@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +11,7 @@ import { EmpleadosService } from './services/empleados.service';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CreateEmpleadoComponent } from './components/create-empleado/create-empleado.component';
 import { UpdateEmpleadoComponent } from './components/update-empleado/update-empleado.component';
+import { ViewEmpleadoComponent } from './components/view-empleado/view-empleado.component';
 
 @NgModule({
   declarations: [
@@ -19,13 +20,15 @@ import { UpdateEmpleadoComponent } from './components/update-empleado/update-emp
     EmpleadosComponent,
     InicioComponent,
     CreateEmpleadoComponent,
-    UpdateEmpleadoComponent
+    UpdateEmpleadoComponent,
+    ViewEmpleadoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [EmpleadosService],
   bootstrap: [AppComponent]

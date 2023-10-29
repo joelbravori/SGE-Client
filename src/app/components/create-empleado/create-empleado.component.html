@@ -34,11 +34,11 @@
                     <input type="file" class="form-control" name="imagen" (change)="onChange($event)">
                 </div>
                 <div *ngIf="myImage; else noImage" class="form-group m-2">
-                    <img [src]="myImage" width="375px" height="375px">
+                    <img [src]="myImage" class="img-fluid">
                 </div>
                 <ng-template #noImage>
                     <div class="form-group m-2">
-                        <img [src]="'assets/no_image.jpg'" width="375px" height="375px">
+                        <img [src]="'assets/no_image.jpg'" class="img-fluid">
                     </div>
                 </ng-template>
                 <div class="m-2 row">

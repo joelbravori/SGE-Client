@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subscriber } from 'rxjs';
+import { Observable, Subscriber, tap, catchError, throwError } from 'rxjs';
 import { Empleado } from 'src/app/models/Empleado';
 import { EmpleadosService } from 'src/app/services/empleados.service';
+import { Router } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-create-empleado',
   templateUrl: './create-empleado.component.html',
@@ -21,18 +23,32 @@ export class CreateEmpleadoComponent implements OnInit {
   myImage!:Observable<any>;
   base64code!: string;
 
-  constructor(){}
+  constructor(
+    private empleadoService: EmpleadosService,
+    private router: Router
+  ){}
 
   ngOnInit(){}
 
   createUser(){
-    console.log(this.empleado)
+    //console.log(this.empleado)
+    this.empleadoService.createEmpleado(this.empleado).pipe(
+      tap((res:any) => {
+        console.log(res);
+        this.router.navigate(['/empleados']);
+      }),
+      catchError(err => {
+        console.error(err);
+        return throwError(() => err)
+      })
+    ).subscribe();
+
   }
 
   onChange($event: Event){
     const target = $event.target as HTMLInputElement;
     const file: File = (target.files as FileList)[0]
-    console.log(file)
+    //console.log(file)
     this.convertToBase64(file);
   }
 
@@ -64,6 +80,6 @@ export class CreateEmpleadoComponent implements OnInit {
       subscriber.complete();
     }
 
-
   }
+
 }

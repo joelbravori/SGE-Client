@@ -4,6 +4,7 @@ import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CreateEmpleadoComponent } from './components/create-empleado/create-empleado.component';
 import { UpdateEmpleadoComponent } from './components/update-empleado/update-empleado.component';
+import { ViewEmpleadoComponent } from './components/view-empleado/view-empleado.component';
 
 const routes: Routes = [
   {
@@ -24,8 +25,12 @@ const routes: Routes = [
     component: CreateEmpleadoComponent
   },
   {
-    path: 'empleado/actualizar',
+    path: 'empleado/editar/:id',
     component: UpdateEmpleadoComponent
+  },
+  {
+    path: 'empleado/detalles/:id',
+    component: ViewEmpleadoComponent
   }
 ];
 
