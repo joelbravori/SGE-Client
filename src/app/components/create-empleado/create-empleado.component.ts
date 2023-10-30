@@ -3,7 +3,9 @@ import { Observable, Subscriber, tap, catchError, throwError } from 'rxjs';
 import { Empleado } from 'src/app/models/Empleado';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { formatRut } from '@fdograph/rut-utilities';
+import { RutValidator } from '../../valida-rut.directive';
 @Component({
   selector: 'app-create-empleado',
   templateUrl: './create-empleado.component.html',
@@ -11,37 +13,55 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class CreateEmpleadoComponent implements OnInit {
 
-  empleado: Empleado={
-    id: '',
-    imagen: '',
-    nombre: '',
-    correo: '',
-    telefono: '',
-    direccion: ''
-  }
+  empleadoForm!:FormGroup;
 
   myImage!:Observable<any>;
   base64code!: string;
 
   constructor(
     private empleadoService: EmpleadosService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ){}
 
-  ngOnInit(){}
+  ngOnInit(){
+    this.empleadoForm = this.initForm();
+  }
 
+
+  initForm(): FormGroup {
+    return this.fb.group({
+      nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      correo: ['', [Validators.required, Validators.email]],
+      telefono: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.minLength(9), Validators.maxLength(11)]],
+      direccion: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+      imagen: [''],
+      imagen2: ['', [Validators.required]],
+      id: ['', [Validators.required, RutValidator()]]
+      
+    })
+  }
   createUser(){
-    //console.log(this.empleado)
-    this.empleadoService.createEmpleado(this.empleado).pipe(
-      tap((res:any) => {
-        console.log(res);
-        this.router.navigate(['/empleados']);
-      }),
-      catchError(err => {
-        console.error(err);
-        return throwError(() => err)
-      })
-    ).subscribe();
+    
+    //this.empleadoForm.patchValue({id: this.formatearRut(this.empleadoForm.get('id')?.value)});
+    // this.empleadoService.createEmpleado(this.empleadoForm.value).pipe(
+    //   tap((res:any) => {
+    //     console.log(res);
+    //     this.router.navigate(['/empleados']);
+    //   }),
+    //   catchError(err => {
+    //     console.error(err);
+    //     return throwError(() => err)
+    //   })
+    // ).subscribe();
+    
+    //console.log(this.empleadoForm.value)
+
+  }
+
+  formatearRut(rut:string){
+
+    return formatRut(rut);
 
   }
 
@@ -59,7 +79,8 @@ export class CreateEmpleadoComponent implements OnInit {
     observable.subscribe((d) => {
       this.base64code= d;
       this.myImage=d;
-      this.empleado.imagen = d;
+      //this.empleado.imagen = d;
+      this.empleadoForm.patchValue({imagen: d});
     })
   }
 
@@ -80,6 +101,10 @@ export class CreateEmpleadoComponent implements OnInit {
       subscriber.complete();
     }
 
+  }
+
+  cancelar(){
+    this.router.navigate(['/empleados']);
   }
 
 }
