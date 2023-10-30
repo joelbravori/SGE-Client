@@ -1,1 +1,48 @@
-<p>view-empleado works!</p>
+<div class="col-md-4 offset-md-4">
+    <div class="card">
+        <div class="card-header text-center bg-primary">
+            <h4 class="fw-bold align-middle m-0 text-white">Detalles</h4>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="empleadoForm">
+
+                <!--IMAGEN-->
+                <div *ngIf="myImage; else noImage" class="form-group m-2">
+                    <img [src]="myImage" class="img-fluid">
+                </div>
+                <ng-template #noImage>
+                    <div class="form-group m-2">
+                        <img [src]="'assets/no_image.jpg'" class="img-fluid">
+                    </div>
+                </ng-template>
+
+                <!--NOMBRE-->
+                <div class="form-group row m-2">
+                    <label class="p-0 fw-bold">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" placeholder="Ingrese Nombre" formControlName="nombre" readonly>
+                </div>
+                <!--RUT-->
+                <div class="form-group m-2">
+                    <label class="p-0 fw-bold">RUT</label>
+                    <input type="text" class="form-control" name="id" placeholder="Ingrese RUT" formControlName="id" readonly>
+                </div>
+                <!--CORREO-->
+                <div class="form-group m-2">
+                    <label class="p-0 fw-bold">Correo</label>
+                    <input type="email" class="form-control" name="correo" placeholder="Ingrese Correo" formControlName="correo" readonly>
+                </div>
+                <!--TELEFONO-->
+                <div class="form-group m-2">
+                    <label class="p-0 fw-bold">Teléfono</label>
+                    <input type="text" class="form-control" name="telefono" placeholder="Ingrese Teléfono" formControlName="telefono" readonly>
+                </div>
+                <!--DIRECCION-->
+                <div class="form-group m-2">
+                    <label class="p-0 fw-bold">Dirección</label>
+                    <input type="text" class="form-control" name="direccion" placeholder="Ingrese Dirección" formControlName="direccion" readonly>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

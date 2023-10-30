@@ -41,6 +41,7 @@ export class CreateEmpleadoComponent implements OnInit {
       
     })
   }
+  
   createUser(){
     
     //this.empleadoForm.patchValue({id: this.formatearRut(this.empleadoForm.get('id')?.value)});
@@ -55,7 +56,7 @@ export class CreateEmpleadoComponent implements OnInit {
     //   })
     // ).subscribe();
     
-    //console.log(this.empleadoForm.value)
+    console.log(this.empleadoForm.value)
 
   }
 
