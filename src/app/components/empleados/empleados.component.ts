@@ -5,6 +5,7 @@ import { throwError } from 'rxjs';
 import { EmpleadoResponse } from 'src/app/models/EmpleadoResponse';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { formatRut, RutFormat } from '@fdograph/rut-utilities';
 @Component({
   selector: 'app-empleados',
   templateUrl: './empleados.component.html',
@@ -12,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EmpleadosComponent implements OnInit {
 
+  idEliminar:string='';
   empleados: EmpleadoResponse[] = [];
 
   constructor(
@@ -42,28 +44,47 @@ export class EmpleadosComponent implements OnInit {
     
   }
 
-  eliminarEmpleado(id: string){
+  eliminarEmpleado(){
     //console.log(id)
 
-    this.empleadoService.deleteEmpleado(id).pipe(
-      tap((res:any) => {
-        if(res.Message==='SUCCESS'){
-          console.log(res);
-          this.toastr.success('Se eliminó el empleado exitosamente.');
+    if(this.idEliminar!==''){
+
+      this.empleadoService.deleteEmpleado(this.idEliminar).pipe(
+        tap((res:any) => {
+          if(res.Message==='SUCCESS'){
+            console.log(res);
+            this.toastr.success('Se eliminó el empleado exitosamente.');
+            this.limpiarEliminar();
+            this.getEmpleados();
+          }
+        }),
+        catchError(err => {
+          console.error(err);
+          this.toastr.error(err.error.Reason);
+          this.limpiarEliminar();
           this.getEmpleados();
-        }
-      }),
-      catchError(err => {
-        console.error(err);
-        this.toastr.error(err.error.Reason);
-        this.getEmpleados();
-        return throwError(() => err)
-      })
-    ).subscribe();
+          return throwError(() => err)
+        })
+      ).subscribe();
+
+    }
+    
   }
 
   toCreateUser(){
     this.router.navigate(['/empleado/crear']);
+  }
+
+  formatearRut(rut:string){
+    return formatRut(rut, RutFormat.DOTS_DASH)
+  }
+
+  setEliminar(id: string){
+    this.idEliminar=id;
+  }
+
+  limpiarEliminar(){
+    this.idEliminar='';
   }
 
 }

@@ -1,24 +1,21 @@
 <!-- Modal -->
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="modal-header bg-primary">
+                <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Eliminar Empleado</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                ...
+            <div class="modal-body text-center">
+                ¿Esta seguro que quiere eliminar este empleado?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-danger" (click)="eliminarEmpleado()" data-bs-dismiss="modal">Eliminar</button>
+                <button type="button" class="btn btn-secondary" (click)="limpiarEliminar()" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 <div class="container">
     <div>
@@ -41,22 +38,18 @@
             </thead>
             <tbody>
                 <tr *ngFor="let empleado of empleados; index as i">
-                    <td>{{i+1}}</td>
-                    <td>{{empleado.nombre}}</td>
-                    <td>{{empleado.id}}</td>
-                    <td>{{empleado.correo}}</td>
-                    <td>{{empleado.telefono}}</td>
-                    <td>{{empleado.direccion}}</td>
-                    <td>
-                        <button class="btn btn-primary mx-1" [routerLink]="['/empleado/detalles', empleado.id]"><i
-                                class="fa-solid fa-eye"></i></button>
-                        <button class="btn btn-primary mx-1" [routerLink]="['/empleado/editar', empleado.id]"><i
-                                class="fa-solid fa-pen"></i></button>
-                        <button class="btn btn-danger  mx-1" (click)="eliminarEmpleado(empleado.id)"><i class="fa-solid fa-trash"></i></button>
-                        <!-- <button class="btn btn-danger  mx-1" data-toggle="modal" data-target="#exampleModal"><i
-                                class="fa-solid fa-trash"></i></button> -->
+                    <td class="align-middle">{{i+1}}</td>
+                    <td class="align-middle">{{empleado.nombre}}</td>
+                    <td class="align-middle">{{formatearRut(empleado.id)}}</td>
+                    <td class="align-middle">{{empleado.correo}}</td>
+                    <td class="align-middle">{{empleado.telefono}}</td>
+                    <td class="align-middle">{{empleado.direccion}}</td>
+                    <td class="align-middle">
+                        <button class="btn btn-primary mx-1" [routerLink]="['/empleado/detalles', empleado.id]"><i class="fa-solid fa-eye"></i></button>
+                        <button class="btn btn-primary mx-1" [routerLink]="['/empleado/editar', empleado.id]"><i class="fa-solid fa-pen"></i></button>
+                        <!-- <button class="btn btn-danger  mx-1" (click)="eliminarEmpleado(empleado.id)"><i class="fa-solid fa-trash"></i></button> -->
+                        <button class="btn btn-danger  mx-1" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="setEliminar(empleado.id)"><i class="fa-solid fa-trash"></i></button>
                     </td>
-
                 </tr>
             </tbody>
         </table>
