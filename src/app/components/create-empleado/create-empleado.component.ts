@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { formatRut } from '@fdograph/rut-utilities';
 import { RutValidator } from '../../valida-rut.directive';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-create-empleado',
   templateUrl: './create-empleado.component.html',
@@ -21,7 +22,8 @@ export class CreateEmpleadoComponent implements OnInit {
   constructor(
     private empleadoService: EmpleadosService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastr: ToastrService
   ){}
 
   ngOnInit(){
@@ -44,19 +46,27 @@ export class CreateEmpleadoComponent implements OnInit {
   
   createUser(){
     
-    //this.empleadoForm.patchValue({id: this.formatearRut(this.empleadoForm.get('id')?.value)});
-    // this.empleadoService.createEmpleado(this.empleadoForm.value).pipe(
-    //   tap((res:any) => {
-    //     console.log(res);
-    //     this.router.navigate(['/empleados']);
-    //   }),
-    //   catchError(err => {
-    //     console.error(err);
-    //     return throwError(() => err)
-    //   })
-    // ).subscribe();
+    this.empleadoForm.patchValue({id: this.formatearRut(this.empleadoForm.get('id')?.value)});
+    this.empleadoService.createEmpleado(this.empleadoForm.value).pipe(
+      tap((res:any) => {
+        //console.log(res);
+        if(res.Message==='SUCCESS'){
+          this.toastr.success('Empleado guardado exitosamente.');
+        }
+        else{
+          this.toastr.error(res.Reason);
+        }
+        this.router.navigate(['/empleados']);
+      }),
+      catchError(err => {
+        //console.error(err);
+        this.toastr.error(err.error.Reason);
+        this.router.navigate(['/empleados']);
+        return throwError(() => err)
+      })
+    ).subscribe();
     
-    console.log(this.empleadoForm.value)
+    //console.log(this.empleadoForm.value)
 
   }
 

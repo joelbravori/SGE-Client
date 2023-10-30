@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 import { EmpleadosService } from 'src/app/services/empleados.service';
+import { formatRut, RutFormat } from '@fdograph/rut-utilities';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-view-empleado',
@@ -18,7 +20,8 @@ export class ViewEmpleadoComponent implements OnInit {
   constructor(
     private empleadoService: EmpleadosService,
     private fb: FormBuilder,
-    private activatedRoute:ActivatedRoute
+    private activatedRoute:ActivatedRoute,
+    private toastr: ToastrService
   ){}
 
   ngOnInit() {
@@ -49,17 +52,15 @@ export class ViewEmpleadoComponent implements OnInit {
               correo: res.Response.correo,
               telefono: res.Response.telefono,
               direccion: res.Response.direccion,
-              id: res.Response.id
+              id: formatRut(res.Response.id, RutFormat.DOTS_DASH)
             });
             this.myImage=res.Response.ImageUrl;
-          }
-          else {
-            console.error(res.Reason);
           }
           
         }),
         catchError(err => {
-          console.error(err);
+          //console.error(err);
+          this.toastr.error(err.error.Reason);
           return throwError(() => err)
         })
       ).subscribe();

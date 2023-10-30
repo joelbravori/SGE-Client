@@ -12,7 +12,8 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { CreateEmpleadoComponent } from './components/create-empleado/create-empleado.component';
 import { UpdateEmpleadoComponent } from './components/update-empleado/update-empleado.component';
 import { ViewEmpleadoComponent } from './components/view-empleado/view-empleado.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,9 +29,13 @@ import { ViewEmpleadoComponent } from './components/view-empleado/view-empleado.
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
   ],
-  providers: [EmpleadosService],
+  providers: [
+    EmpleadosService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

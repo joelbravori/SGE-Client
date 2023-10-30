@@ -4,6 +4,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { EmpleadoResponse } from 'src/app/models/EmpleadoResponse';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-empleados',
   templateUrl: './empleados.component.html',
@@ -15,7 +16,8 @@ export class EmpleadosComponent implements OnInit {
 
   constructor(
     private empleadoService: EmpleadosService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -23,17 +25,21 @@ export class EmpleadosComponent implements OnInit {
   }
 
   getEmpleados(){
+
     this.empleadoService.getEmpleados().pipe(
       tap((res:any) => {
-        console.log(res);
+        //console.log(res);
         this.empleados = res.Response;
+        if(res.Message!=='SUCCESS'){
+          this.toastr.error(res.Reason);
+        }
       }),
       catchError(err => {
         console.error(err);
         return throwError(() => err)
       })
     ).subscribe();
-    //this.empleados=this.json.Response;
+    
   }
 
   eliminarEmpleado(id: string){
@@ -41,11 +47,16 @@ export class EmpleadosComponent implements OnInit {
 
     this.empleadoService.deleteEmpleado(id).pipe(
       tap((res:any) => {
-        console.log(res);
-        this.getEmpleados();
+        if(res.Message==='SUCCESS'){
+          console.log(res);
+          this.toastr.success('Se eliminó el empleado exitosamente.');
+          this.getEmpleados();
+        }
       }),
       catchError(err => {
         console.error(err);
+        this.toastr.error(err.error.Reason);
+        this.getEmpleados();
         return throwError(() => err)
       })
     ).subscribe();
