@@ -43,7 +43,7 @@ export class EmpleadosComponent implements OnInit {
   }
 
   eliminarEmpleado(id: string){
-    console.log(id)
+    //console.log(id)
 
     this.empleadoService.deleteEmpleado(id).pipe(
       tap((res:any) => {

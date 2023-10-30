@@ -61,7 +61,6 @@ export class CreateEmpleadoComponent implements OnInit {
       catchError(err => {
         //console.error(err);
         this.toastr.error(err.error.Reason);
-        this.router.navigate(['/empleados']);
         return throwError(() => err)
       })
     ).subscribe();
