@@ -5,6 +5,15 @@
         </div>
         <div class="card-body">
             <form [formGroup]="empleadoForm">
+                <!--IMAGEN-->
+                <div *ngIf="myImage; else noImage" class="form-group m-2">
+                    <img [src]="myImage" class="img-fluid">
+                </div>
+                <ng-template #noImage>
+                    <div class="form-group m-2">
+                        <img [src]="'assets/no_image.jpg'" class="img-fluid">
+                    </div>
+                </ng-template>
                 <!--NOMBRE-->
                 <div class="form-group row m-2">
                     <label class="p-0 fw-bold">Nombre*</label>
@@ -56,7 +65,7 @@
                     El mínimo permitido es de 9 números.
                 </div>
                 <div *ngIf="empleadoForm.get('telefono')?.touched && empleadoForm.get('telefono')?.errors?.['maxlength']" class="alert alert-danger alert-sm form-group row m-2">
-                    El máximo permitido es de 11 números.
+                    El máximo permitido es de 13 números.
                 </div>
                 <!--DIRECCION-->
                 <div class="form-group m-2">
@@ -72,19 +81,11 @@
                 <div *ngIf="empleadoForm.get('direccion')?.touched && empleadoForm.get('direccion')?.errors?.['maxlength']" class="alert alert-danger alert-sm form-group row m-2">
                     El máximo permitido es de 50 caracteres.
                 </div>
-                <!--IMAGEN-->
+                <!--IMAGEN INPUT-->
                 <div class="form-group m-2">
                     <label class="p-0 fw-bold">Imagen*</label>
                     <input type="file" class="form-control" name="imagen2" (change)="onChange($event)" formControlName="imagen2" required>
                 </div>
-                <div *ngIf="myImage; else noImage" class="form-group m-2">
-                    <img [src]="myImage" class="img-fluid">
-                </div>
-                <ng-template #noImage>
-                    <div class="form-group m-2">
-                        <img [src]="'assets/no_image.jpg'" class="img-fluid">
-                    </div>
-                </ng-template>
                 <!--BOTONES-->
                 <div class="m-2 row">
                     <div class="col-6">
@@ -93,8 +94,6 @@
                     <div class="col-6">
                         <button class="btn btn-secondary w-100" (click)="cancelar()">Cancelar</button>
                     </div>
-                    
-                    
                 </div>
             </form>
         </div>

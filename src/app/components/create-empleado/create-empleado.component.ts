@@ -3,7 +3,7 @@ import { Observable, Subscriber, tap, catchError, throwError } from 'rxjs';
 import { Empleado } from 'src/app/models/Empleado';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { formatRut } from '@fdograph/rut-utilities';
 import { RutValidator } from '../../valida-rut.directive';
 import { ToastrService } from 'ngx-toastr';
@@ -15,9 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class CreateEmpleadoComponent implements OnInit {
 
   empleadoForm!:FormGroup;
-
   myImage!:Observable<any>;
-  base64code!: string;
 
   constructor(
     private empleadoService: EmpleadosService,
@@ -35,12 +33,11 @@ export class CreateEmpleadoComponent implements OnInit {
     return this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       correo: ['', [Validators.required, Validators.email]],
-      telefono: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.minLength(9), Validators.maxLength(11)]],
+      telefono: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.minLength(9), Validators.maxLength(13)]],
       direccion: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
       imagen: [''],
       imagen2: ['', [Validators.required]],
       id: ['', [Validators.required, RutValidator()]]
-      
     })
   }
   
@@ -70,9 +67,7 @@ export class CreateEmpleadoComponent implements OnInit {
   }
 
   formatearRut(rut:string){
-
     return formatRut(rut);
-
   }
 
   onChange($event: Event){
@@ -87,9 +82,7 @@ export class CreateEmpleadoComponent implements OnInit {
       this.readFile(file, subscriber)
     })
     observable.subscribe((d) => {
-      this.base64code= d;
       this.myImage=d;
-      //this.empleado.imagen = d;
       this.empleadoForm.patchValue({imagen: d});
     })
   }

@@ -1,1 +1,101 @@
-<p>update-empleado works!</p>
+<div class="col-md-4 offset-md-4">
+    <div class="card">
+        <div class="card-header text-center bg-primary">
+            <h4 class="fw-bold align-middle m-0 text-white">Editar Empleado</h4>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="empleadoForm">
+                <!--IMAGEN-->
+                <div *ngIf="myImage; else noImage" class="form-group m-2">
+                    <img [src]="myImage" class="img-fluid">
+                </div>
+                <ng-template #noImage>
+                    <div class="form-group m-2">
+                        <img [src]="'assets/no_image.jpg'" class="img-fluid">
+                    </div>
+                </ng-template>
+                <!--NOMBRE-->
+                <div class="form-group row m-2">
+                    <label class="p-0 fw-bold">Nombre*</label>
+                    <input type="text" class="form-control" name="nombre" placeholder="Ingrese Nombre" formControlName="nombre" required>
+                </div>
+                <div *ngIf="empleadoForm.get('nombre')?.touched && empleadoForm.get('nombre')?.errors?.['required']" class="alert alert-danger alert-sm form-group row m-2">
+                    Este campo es requerido.
+                </div>
+                <div *ngIf="empleadoForm.get('nombre')?.touched && empleadoForm.get('nombre')?.errors?.['minlength']" class="alert alert-danger alert-sm form-group row m-2">
+                    Este campo tiene un mínimo de 2 caracteres.
+                </div>
+                <div *ngIf="empleadoForm.get('nombre')?.touched && empleadoForm.get('nombre')?.errors?.['maxlength']" class="alert alert-danger alert-sm form-group row m-2">
+                    Este campo tiene un máximo de 50 caracteres.
+                </div>
+                <!--RUT-->
+                <div class="form-group m-2">
+                    <label class="p-0 fw-bold">RUT*</label>
+                    <input type="text" class="form-control" name="id" placeholder="Ingrese RUT" formControlName="id" required>
+                </div>
+                <div *ngIf="empleadoForm.get('id')?.touched && empleadoForm.get('id')?.errors?.['required']" class="alert alert-danger alert-sm form-group row m-2">
+                    Este campo es requerido.
+                </div>
+                <div *ngIf="empleadoForm.get('id')?.touched && empleadoForm.get('id')?.errors?.['invalidRut']" class="alert alert-danger alert-sm form-group row m-2">
+                    El RUT no es válido.
+                </div>
+                <!--CORREO-->
+                <div class="form-group m-2">
+                    <label class="p-0 fw-bold">Correo*</label>
+                    <input type="email" class="form-control" name="correo" placeholder="Ingrese Correo" formControlName="correo" required>
+                </div>
+                <div *ngIf="empleadoForm.get('correo')?.touched && empleadoForm.get('correo')?.errors?.['required']" class="alert alert-danger alert-sm form-group row m-2">
+                    Este campo es requerido.
+                </div>
+                <div *ngIf="empleadoForm.get('correo')?.touched && empleadoForm.get('correo')?.errors?.['email']" class="alert alert-danger alert-sm form-group row m-2">
+                    No es un formato válido de correo.
+                </div>
+                <!--TELEFONO-->
+                <div class="form-group m-2">
+                    <label class="p-0 fw-bold">Teléfono*</label>
+                    <input type="text" class="form-control" name="telefono" placeholder="Ingrese Teléfono" formControlName="telefono" required>
+                </div>
+                <div *ngIf="empleadoForm.get('telefono')?.touched && empleadoForm.get('telefono')?.errors?.['required']" class="alert alert-danger alert-sm form-group row m-2">
+                    Este campo es requerido.
+                </div>
+                <div *ngIf="empleadoForm.get('telefono')?.touched && empleadoForm.get('telefono')?.errors?.['pattern']" class="alert alert-danger alert-sm form-group row m-2">
+                    Sólo se permiten números.
+                </div>
+                <div *ngIf="empleadoForm.get('telefono')?.touched && empleadoForm.get('telefono')?.errors?.['minlength']" class="alert alert-danger alert-sm form-group row m-2">
+                    El mínimo permitido es de 9 números.
+                </div>
+                <div *ngIf="empleadoForm.get('telefono')?.touched && empleadoForm.get('telefono')?.errors?.['maxlength']" class="alert alert-danger alert-sm form-group row m-2">
+                    El máximo permitido es de 13 números.
+                </div>
+                <!--DIRECCION-->
+                <div class="form-group m-2">
+                    <label class="p-0 fw-bold">Dirección*</label>
+                    <input type="text" class="form-control" name="direccion" placeholder="Ingrese Dirección" formControlName="direccion" required>
+                </div>
+                <div *ngIf="empleadoForm.get('direccion')?.touched && empleadoForm.get('direccion')?.errors?.['required']" class="alert alert-danger alert-sm form-group row m-2">
+                    Este campo es requerido.
+                </div>
+                <div *ngIf="empleadoForm.get('direccion')?.touched && empleadoForm.get('direccion')?.errors?.['minlength']" class="alert alert-danger alert-sm form-group row m-2">
+                    El mínimo permitido es de 5 caracteres.
+                </div>
+                <div *ngIf="empleadoForm.get('direccion')?.touched && empleadoForm.get('direccion')?.errors?.['maxlength']" class="alert alert-danger alert-sm form-group row m-2">
+                    El máximo permitido es de 50 caracteres.
+                </div>
+                <!--IMAGEN INPUT-->
+                <div class="form-group m-2">
+                    <label class="p-0 fw-bold">Imagen</label>
+                    <input type="file" class="form-control" name="imagen2" (change)="onChange($event)" formControlName="imagen2">
+                </div>
+                <!--BOTONES-->
+                <div class="m-2 row">
+                    <div class="col-6">
+                        <button class="btn btn-success w-100" (click)="updateUser()" [disabled]="empleadoForm.invalid">Guardar</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-secondary w-100" (click)="cancelar()">Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

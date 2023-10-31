@@ -59,7 +59,6 @@ export class ViewEmpleadoComponent implements OnInit {
           
         }),
         catchError(err => {
-          //console.error(err);
           this.toastr.error(err.error.Reason);
           return throwError(() => err)
         })
