@@ -7,7 +7,8 @@ import { Empleado } from '../models/Empleado';
 })
 export class EmpleadosService {
 
-  API_URI = 'https://71nd3xtkqg.execute-api.us-east-1.amazonaws.com/prod';
+  //API_URI = 'https://71nd3xtkqg.execute-api.us-east-1.amazonaws.com/prod'; //Seba
+  API_URI = 'https://r12kye3ys1.execute-api.us-east-1.amazonaws.com/prod'; //Fernando
 
   constructor(private http: HttpClient) { }
 
