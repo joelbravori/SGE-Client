@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Empleado } from '../models/Empleado';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmpleadosService {
 
-  //API_URI = 'https://71nd3xtkqg.execute-api.us-east-1.amazonaws.com/prod'; //Seba
-  API_URI = 'https://r12kye3ys1.execute-api.us-east-1.amazonaws.com/prod'; //Fernando
+  private API_URI: string |undefined;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.API_URI = environment.url;
+  }
 
   getEmpleados(){
     return this.http.get(`${this.API_URI}/empleados`);
