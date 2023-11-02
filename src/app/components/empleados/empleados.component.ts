@@ -1,3 +1,4 @@
+import { SpinnerService } from './../../services/spinner.service';
 import { Component, OnInit } from '@angular/core';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { tap, catchError } from 'rxjs/operators';
@@ -19,7 +20,8 @@ export class EmpleadosComponent implements OnInit {
   constructor(
     private empleadoService: EmpleadosService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinnerService: SpinnerService
   ) { }
 
   ngOnInit() {

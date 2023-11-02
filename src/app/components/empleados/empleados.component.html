@@ -22,7 +22,6 @@
         <button class="btn btn-primary my-2" routerLink="empleado/crear" (click)="toCreateUser()">Nuevo
             Empleado</button>
     </div>
-    <!-- <div *ngIf="empleados.length!==0; else noHayEmpleados"> -->
     <div>
         <table class="table">
             <thead class="table-primary">
@@ -54,12 +53,7 @@
             </tbody>
         </table>
     </div>
-    <!-- <ng-template #noHayEmpleados>
-        <div class="row m-2">
-            <h3>
-                No hay registros de empleados en la base de datos.
-            </h3>
-        </div>
-    </ng-template> -->
 
 </div>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-spin-clockwise" [fullScreen] = "true"><p style="color: white" > Cargando... </p></ngx-spinner>
