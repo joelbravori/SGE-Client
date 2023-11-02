@@ -52,7 +52,7 @@ export class ViewEmpleadoComponent implements OnInit {
               correo: res.Response.correo,
               telefono: res.Response.telefono,
               direccion: res.Response.direccion,
-              id: formatRut(res.Response.id, RutFormat.DOTS_DASH)
+              id: res.Response.id, RutFormat
             });
             this.myImage=res.Response.ImageUrl;
           }

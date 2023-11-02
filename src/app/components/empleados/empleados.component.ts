@@ -30,14 +30,12 @@ export class EmpleadosComponent implements OnInit {
 
     this.empleadoService.getEmpleados().pipe(
       tap((res:any) => {
-        //console.log(res);
         this.empleados = res.Response;
         if(res.Message!=='SUCCESS'){
           this.toastr.error(res.Reason);
         }
       }),
       catchError(err => {
-        console.error(err);
         return throwError(() => err)
       })
     ).subscribe();
@@ -45,21 +43,18 @@ export class EmpleadosComponent implements OnInit {
   }
 
   eliminarEmpleado(){
-    //console.log(id)
 
     if(this.idEliminar!==''){
 
       this.empleadoService.deleteEmpleado(this.idEliminar).pipe(
         tap((res:any) => {
           if(res.Message==='SUCCESS'){
-            console.log(res);
             this.toastr.success('Se eliminó el empleado exitosamente.');
             this.limpiarEliminar();
             this.getEmpleados();
           }
         }),
         catchError(err => {
-          console.error(err);
           this.toastr.error(err.error.Reason);
           this.limpiarEliminar();
           this.getEmpleados();

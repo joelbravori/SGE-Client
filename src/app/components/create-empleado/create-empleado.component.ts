@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subscriber, tap, catchError, throwError } from 'rxjs';
-import { Empleado } from 'src/app/models/Empleado';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { formatRut } from '@fdograph/rut-utilities';
+import { formatRut, RutFormat, validateRut } from '@fdograph/rut-utilities';
 import { RutValidator } from '../../valida-rut.directive';
 import { ToastrService } from 'ngx-toastr';
 @Component({
@@ -43,38 +42,42 @@ export class CreateEmpleadoComponent implements OnInit {
   
   createUser(){
     
-    this.empleadoForm.patchValue({id: this.formatearRut(this.empleadoForm.get('id')?.value)});
     this.empleadoService.createEmpleado(this.empleadoForm.value).pipe(
       tap((res:any) => {
-        //console.log(res);
+        
         if(res.Message==='SUCCESS'){
           this.toastr.success('Empleado guardado exitosamente.');
+          this.router.navigate(['/empleados']);
         }
         else{
           this.toastr.error(res.Reason);
         }
-        this.router.navigate(['/empleados']);
+        
       }),
       catchError(err => {
-        //console.error(err);
         this.toastr.error(err.error.Reason);
         return throwError(() => err)
       })
     ).subscribe();
-    
-    //console.log(this.empleadoForm.value)
 
   }
 
   formatearRut(rut:string){
-    return formatRut(rut);
+    return formatRut(rut, RutFormat.DOTS_DASH).toUpperCase();
   }
 
   onChange($event: Event){
     const target = $event.target as HTMLInputElement;
     const file: File = (target.files as FileList)[0]
-    //console.log(file)
     this.convertToBase64(file);
+  }
+
+  onChangeRut(event: any){
+    let valorInput = event.target.value;
+    if(validateRut(valorInput)){
+      this.empleadoForm.patchValue({id: this.formatearRut(this.empleadoForm.get('id')?.value)});
+    }
+
   }
 
   convertToBase64(file: File){

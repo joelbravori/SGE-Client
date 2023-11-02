@@ -31,7 +31,7 @@
                 <!--RUT-->
                 <div class="form-group m-2">
                     <label class="p-0 fw-bold">RUT*</label>
-                    <input type="text" class="form-control" name="id" placeholder="Ingrese RUT" formControlName="id" required>
+                    <input type="text" class="form-control" name="id" placeholder="Ingrese RUT" formControlName="id" (change)="onChangeRut($event)">
                 </div>
                 <div *ngIf="empleadoForm.get('id')?.touched && empleadoForm.get('id')?.errors?.['required']" class="alert alert-danger alert-sm form-group row m-2">
                     Este campo es requerido.

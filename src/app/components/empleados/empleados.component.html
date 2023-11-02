@@ -40,7 +40,7 @@
                 <tr *ngFor="let empleado of empleados; index as i">
                     <td class="align-middle">{{i+1}}</td>
                     <td class="align-middle">{{empleado.nombre}}</td>
-                    <td class="align-middle">{{formatearRut(empleado.id)}}</td>
+                    <td class="align-middle">{{empleado.id}}</td>
                     <td class="align-middle">{{empleado.correo}}</td>
                     <td class="align-middle">{{empleado.telefono}}</td>
                     <td class="align-middle">{{empleado.direccion}}</td>
