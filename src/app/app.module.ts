@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { InterceptorService } from './services/interceptor.service';
+import { NoPageComponent } from './components/no-page/no-page.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { InterceptorService } from './services/interceptor.service';
     InicioComponent,
     CreateEmpleadoComponent,
     UpdateEmpleadoComponent,
-    ViewEmpleadoComponent
+    ViewEmpleadoComponent,
+    NoPageComponent
   ],
   imports: [
     BrowserModule,

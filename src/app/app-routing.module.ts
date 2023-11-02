@@ -5,6 +5,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { CreateEmpleadoComponent } from './components/create-empleado/create-empleado.component';
 import { UpdateEmpleadoComponent } from './components/update-empleado/update-empleado.component';
 import { ViewEmpleadoComponent } from './components/view-empleado/view-empleado.component';
+import { NoPageComponent } from './components/no-page/no-page.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'empleado/detalles/:id',
     component: ViewEmpleadoComponent
+  },
+  {
+    path:'**',
+    component: NoPageComponent
   }
 ];
 
