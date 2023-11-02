@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { formatRut, RutFormat } from '@fdograph/rut-utilities';
@@ -21,7 +21,8 @@ export class ViewEmpleadoComponent implements OnInit {
     private empleadoService: EmpleadosService,
     private fb: FormBuilder,
     private activatedRoute:ActivatedRoute,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ){}
 
   ngOnInit() {
@@ -60,6 +61,7 @@ export class ViewEmpleadoComponent implements OnInit {
         }),
         catchError(err => {
           this.toastr.error(err.error.Reason);
+          this.router.navigate(['/empleados']);
           return throwError(() => err)
         })
       ).subscribe();

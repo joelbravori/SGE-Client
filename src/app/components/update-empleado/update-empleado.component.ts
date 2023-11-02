@@ -60,6 +60,7 @@ export class UpdateEmpleadoComponent implements OnInit {
         }),
         catchError(err => {
           this.toastr.error(err.error.Reason);
+          this.router.navigate(['/empleados']);
           return throwError(() => err)
         })
       ).subscribe();
