@@ -93,9 +93,12 @@
                     <label class="p-0 fw-bold">Imagen*</label>
                     <input type="file" class="form-control" name="imagen2" (change)="onChange($event)" formControlName="imagen2" accept="image/*" required>
                 </div>
-                <!-- <div *ngIf="empleadoForm.get('imagen2')?.touched && empleadoForm.get('imagen2')?.errors?.['invalidImage']" class="alert alert-danger alert-sm form-group row m-2">
+                <div *ngIf="empleadoForm.get('imagen2')?.dirty && empleadoForm.get('imagen2')?.errors?.['required']" class="alert alert-danger alert-sm form-group row m-2">
+                    Este campo es requerido.
+                </div>
+                <div *ngIf="empleadoForm.get('imagen2')?.dirty && empleadoForm.get('imagen2')?.errors?.['invalidImage']" class="alert alert-danger alert-sm form-group row m-2">
                     Sólo se permiten imágenes.
-                </div> -->
+                </div>
                 <!--BOTONES-->
                 <div class="m-2 row">
                     <div class="col-6">

@@ -5,11 +5,11 @@ export function ImageValidator(): ValidatorFn {
 
         console.log('control->', control)
 
-        const file = control.value;
-        const fileType = file['type'];
-        const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-
-        return validImageTypes.includes(fileType) ? null : {'invalidImage': true}
+        let file = control.value;
+        const regex = new RegExp("(.*?)\.(jpg|png|jpeg|gif)$"); //add or remove required extensions here
+        let regexTest = regex.test(file);
+        
+        return regexTest ? null : {'invalidImage': true}
         
     }
 }
