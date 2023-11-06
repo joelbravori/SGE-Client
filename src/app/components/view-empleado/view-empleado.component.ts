@@ -68,4 +68,8 @@ export class ViewEmpleadoComponent implements OnInit {
     }
   }
 
+  volver(){
+    this.router.navigate(['/empleados']);
+  }
+
 }

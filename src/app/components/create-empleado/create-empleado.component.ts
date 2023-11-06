@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { formatRut, RutFormat, validateRut } from '@fdograph/rut-utilities';
 import { RutValidator } from '../../valida-rut.directive';
 import { ToastrService } from 'ngx-toastr';
+import { ImageValidator } from '../../valida-imagen.directive';
 @Component({
   selector: 'app-create-empleado',
   templateUrl: './create-empleado.component.html',
@@ -35,7 +36,7 @@ export class CreateEmpleadoComponent implements OnInit {
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.minLength(9), Validators.maxLength(13)]],
       direccion: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
       imagen: [''],
-      imagen2: ['', [Validators.required]],
+      imagen2: ['', [Validators.required, ImageValidator()]],
       id: ['', [Validators.required, RutValidator()]]
     })
   }
@@ -107,6 +108,10 @@ export class CreateEmpleadoComponent implements OnInit {
       subscriber.complete();
     }
 
+  }
+
+  volver(){
+    this.router.navigate(['/empleados']);
   }
 
   cancelar(){

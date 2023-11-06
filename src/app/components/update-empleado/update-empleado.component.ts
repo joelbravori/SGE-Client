@@ -125,6 +125,10 @@ export class UpdateEmpleadoComponent implements OnInit {
 
   }
 
+  volver(){
+    this.router.navigate(['/empleados']);
+  }
+
   cancelar(){
     this.router.navigate(['/empleados']);
   }

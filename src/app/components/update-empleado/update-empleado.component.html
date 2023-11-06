@@ -1,4 +1,10 @@
 <div class="col-md-4 offset-md-4">
+    <div class="col-3">
+        <button class="btn btn-primary w-100 my-1" (click)="volver()">
+            <i class="fa-solid fa-angle-left"></i>
+            Volver
+        </button>
+    </div>
     <div class="card">
         <div class="card-header text-center bg-primary">
             <h4 class="fw-bold align-middle m-0 text-white">Editar Empleado</h4>
@@ -84,7 +90,7 @@
                 <!--IMAGEN INPUT-->
                 <div class="form-group m-2">
                     <label class="p-0 fw-bold">Imagen</label>
-                    <input type="file" class="form-control" name="imagen2" (change)="onChange($event)" formControlName="imagen2">
+                    <input type="file" class="form-control" name="imagen2" (change)="onChange($event)" accept="image/*" formControlName="imagen2">
                 </div>
                 <!--BOTONES-->
                 <div class="m-2 row">
